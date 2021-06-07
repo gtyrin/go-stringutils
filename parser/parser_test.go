@@ -1,10 +1,8 @@
-package parser_test
+package parser
 
 import (
 	"reflect"
 	"testing"
-
-	tp "ds/stringutils/parser"
 )
 
 type testData struct {
@@ -13,7 +11,7 @@ type testData struct {
 }
 
 func TestNumericValues(t *testing.T) {
-	if !reflect.DeepEqual(tp.SplitIntoNumericFields("1/12."), []string{"1", "12"}) {
+	if !reflect.DeepEqual(SplitIntoNumericFields("1/12."), []string{"1", "12"}) {
 		t.Error("Numeric Text Parser Error")
 	}
 }
@@ -25,7 +23,7 @@ func TestRegularValues(t *testing.T) {
 		{"(Epic Records) Sony Music", []string{"Epic Records", "Sony Music"}},
 		// {"2xHD - Storyville Records", []string{"2xHD", "Storyville Records"}},
 	} {
-		got := tp.SplitIntoRegularFields(test.in)
+		got := SplitIntoRegularFields(test.in)
 		if !reflect.DeepEqual(got, test.want) {
 			t.Errorf("Numeric text parser error: want %v, but result %v", test.want, got)
 		}
@@ -33,10 +31,10 @@ func TestRegularValues(t *testing.T) {
 }
 
 func TestNaiveStringToInt(t *testing.T) {
-	if tp.NaiveStringToInt("1977") != 1977 {
+	if NaiveStringToInt("1977") != 1977 {
 		t.Fail()
 	}
-	if tp.NaiveStringToInt("A1977") != 0 {
+	if NaiveStringToInt("A1977") != 0 {
 		t.FailNow()
 	}
 }
